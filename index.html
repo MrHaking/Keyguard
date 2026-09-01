@@ -1016,6 +1016,202 @@
       text-align: right;
     }
 
+    
+    .plugins-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+    }
+
+    .plugins-note {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      max-width: 720px;
+    }
+
+    .plugins-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .plugin-card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 260px;
+      padding: 22px;
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(17,28,46,.76), rgba(9,15,26,.82));
+      border: 1px solid var(--border);
+      overflow: hidden;
+      transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    }
+
+    .plugin-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(96,165,250,.32);
+      box-shadow: 0 20px 55px rgba(0,0,0,.28);
+    }
+
+    .plugin-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .plugin-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(59,130,246,.10);
+      border: 1px solid rgba(96,165,250,.18);
+      font-size: 22px;
+    }
+
+    .plugin-version {
+      padding: 6px 9px;
+      border-radius: 999px;
+      color: #8bbcff;
+      background: rgba(59,130,246,.09);
+      border: 1px solid rgba(59,130,246,.15);
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .plugin-card h3 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      word-break: break-word;
+    }
+
+    .plugin-card p {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 13px;
+      margin: 0 0 18px;
+      flex: 1;
+    }
+
+    .plugin-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      color: #667a93;
+      font-size: 10px;
+      margin-bottom: 13px;
+    }
+
+    .plugin-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .plugin-actions .btn {
+      flex: 1;
+      min-height: 40px;
+      font-size: 12px;
+    }
+
+    .plugin-empty,
+    .plugin-loading,
+    .plugin-error {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 34px 18px;
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.022);
+      border: 1px dashed rgba(255,255,255,.09);
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .admin-panel {
+      margin-top: 20px;
+      padding: 22px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: center;
+      border-radius: 18px;
+      background: rgba(139,92,246,.045);
+      border: 1px solid rgba(139,92,246,.15);
+    }
+
+    .admin-panel h3 {
+      margin: 0 0 7px;
+      font-size: 18px;
+    }
+
+    .admin-panel p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .admin-lock {
+      color: #c4b5fd;
+      font-weight: 800;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 7px;
+    }
+
+    .plugin-warning {
+      margin-top: 14px;
+      color: #7f91a8;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .password-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 14px;
+      padding: 11px 13px;
+      border-radius: 12px;
+      background: rgba(239,68,68,.055);
+      border: 1px solid rgba(239,68,68,.12);
+      color: #dbe7f7;
+      font-size: 12px;
+    }
+
+    .password-box code {
+      color: #fecaca;
+      font-family: Consolas, monospace;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .12em;
+    }
+
+    @media (max-width: 900px) {
+      .plugins-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .admin-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .plugins-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 900px) {
       .hero {
         grid-template-columns: 1fr;
@@ -1152,10 +1348,9 @@
 <div class="nav-links">
 <a href="#features">Возможности</a>
 <a href="#kiosk">KIOSK</a>
-<a href="#safety">Безопасность</a>
+<a href="#plugins">PLUGINS</a><a href="#safety">Безопасность</a>
 <a href="#faq">FAQ</a>
 </div>
-
 <div class="language-picker" id="languagePicker">
 <button aria-expanded="false" aria-haspopup="listbox" class="language-current" id="languageCurrent" type="button">
 <span>🌐</span>
@@ -1428,6 +1623,43 @@
 </div>
 </div>
 </section>
+
+<section id="plugins">
+<div class="container">
+<div class="section-head reveal">
+<div class="eyebrow">PLUGINS</div>
+<h2>KEYGUARD Plugins</h2>
+<p>Расширяйте возможности KEYGUARD дополнительными модулями. Плагины публикуются владельцем проекта через GitHub Releases.</p>
+</div>
+<div class="plugins-toolbar reveal">
+<div class="plugins-note">
+        Сайт автоматически показывает опубликованные плагины из репозитория KEYGUARD.
+        Для публикации используйте имя файла, начинающееся с <b>KEYGUARD_PLUGIN_</b>.
+      </div>
+<button class="btn btn-secondary" id="refreshPlugins" type="button">↻ Обновить</button>
+</div>
+<div class="plugins-grid reveal" id="pluginsGrid">
+<div class="plugin-loading">Загрузка плагинов из GitHub...</div>
+</div>
+<div class="admin-panel reveal">
+<div>
+<div class="admin-lock">🔐 ADMIN / OWNER</div>
+<h3>Управление плагинами</h3>
+<p>
+          Загрузка выполняется через GitHub. На сайте нет скрытого админ-пароля:
+          GitHub сам проверяет, есть ли у аккаунта право публиковать файлы в репозитории.
+        </p>
+</div>
+<a class="btn btn-primary" href="https://github.com/MrHaking/Keyguard/releases/new" rel="noopener noreferrer" target="_blank">
+        Опубликовать плагин
+      </a>
+</div>
+<div class="plugin-warning reveal">
+      ⚠ Плагины могут содержать исполняемый код. Устанавливайте только плагины,
+      которым доверяете, и проверяйте автора/источник перед использованием.
+    </div>
+</div>
+</section>
 <section id="safety">
 <div class="container">
 <div class="safety reveal">
@@ -1439,7 +1671,11 @@
               фиксированная аварийная комбинация. Она нужна как резервный
               способ вернуть управление владельцу устройства.
             </p>
-</div>
+<div class="password-box">
+<span>Пароль KIOSK по умолчанию:</span>
+<code>1234</code>
+<span>— измените после первого запуска</span>
+</div></div>
 <div class="hotkey">
             Ctrl + Alt + Shift + F12
           </div>
@@ -1503,6 +1739,20 @@
               </div>
 </div>
 </div>
+
+<div class="faq-item">
+<button class="faq-q">
+<span>Какой пароль KIOSK установлен по умолчанию?</span>
+<span>+</span>
+</button>
+<div class="faq-a">
+<div>
+      Пароль KIOSK по умолчанию: <b>1234</b>.
+      Рекомендуется изменить его сразу после первого запуска программы.
+      Не используйте пароль 1234 для постоянной защиты.
+    </div>
+</div>
+</div>
 </div>
 </div>
 </section>
@@ -1534,6 +1784,20 @@
 <script>
     // ---------------- LANGUAGE SYSTEM ----------------
     const TRANSLATIONS = {
+  "KEYGUARD Plugins": "KEYGUARD Plugins",
+  "Расширяйте возможности KEYGUARD дополнительными модулями. Плагины публикуются владельцем проекта через GitHub Releases.": "Extend KEYGUARD with additional modules. Plugins are published by the project owner through GitHub Releases.",
+  "Сайт автоматически показывает опубликованные плагины из репозитория KEYGUARD. Для публикации используйте имя файла, начинающееся с KEYGUARD_PLUGIN_.": "The site automatically shows published plugins from the KEYGUARD repository. To publish one, use a filename beginning with KEYGUARD_PLUGIN_.",
+  "↻ Обновить": "↻ Refresh",
+  "Загрузка плагинов из GitHub...": "Loading plugins from GitHub...",
+  "🔐 ADMIN / OWNER": "🔐 ADMIN / OWNER",
+  "Управление плагинами": "Plugin management",
+  "Загрузка выполняется через GitHub. На сайте нет скрытого админ-пароля: GitHub сам проверяет, есть ли у аккаунта право публиковать файлы в репозитории.": "Uploads are handled through GitHub. The site has no hidden admin password: GitHub checks whether the signed-in account has permission to publish files in the repository.",
+  "Опубликовать плагин": "Publish plugin",
+  "⚠ Плагины могут содержать исполняемый код. Устанавливайте только плагины, которым доверяете, и проверяйте автора/источник перед использованием.": "⚠ Plugins may contain executable code. Install only plugins you trust and verify the author/source before use.",
+  "Какой пароль KIOSK установлен по умолчанию?": "What is the default KIOSK password?",
+  "Пароль KIOSK по умолчанию: 1234. Рекомендуется изменить его сразу после первого запуска программы. Не используйте пароль 1234 для постоянной защиты.": "The default KIOSK password is 1234. Change it immediately after the first launch. Do not use 1234 for permanent protection.",
+  "Пароль KIOSK по умолчанию:": "Default KIOSK password:",
+  "— измените после первого запуска": "— change it after the first launch",
   "Возможности": "Features",
   "KIOSK": "KIOSK",
   "Безопасность": "Safety",
@@ -1997,6 +2261,209 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
 
     document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
   
+
+
+    // ---------------- GITHUB PLUGINS ----------------
+    const PLUGIN_RELEASES_API =
+      "https://api.github.com/repos/MrHaking/Keyguard/releases";
+
+    const PLUGIN_FILE_PREFIXES = [
+      "KEYGUARD_PLUGIN_",
+      "KEYGUARD-PLUGIN-",
+      "plugin_",
+      "plugin-"
+    ];
+
+    function isPluginAsset(asset) {
+      const name = String(asset?.name || "");
+      const lower = name.toLowerCase();
+
+      return PLUGIN_FILE_PREFIXES.some(prefix =>
+        lower.startsWith(prefix.toLowerCase())
+      );
+    }
+
+    function cleanPluginName(filename) {
+      let name = String(filename || "")
+        .replace(/\.(kgplugin|zip|7z|rar|py)$/i, "")
+        .replace(/^KEYGUARD[_-]PLUGIN[_-]?/i, "")
+        .replace(/^plugin[_-]?/i, "")
+        .replace(/[_-]v?\d+(?:\.\d+){1,3}.*$/i, "")
+        .replace(/[_-]+/g, " ")
+        .trim();
+
+      return name || filename;
+    }
+
+    function pluginText(ru, en) {
+      return getSiteLanguage() === "en" ? en : ru;
+    }
+
+    function formatPluginDate(value) {
+      try {
+        return new Intl.DateTimeFormat(
+          getSiteLanguage() === "en" ? "en-US" : "ru-RU",
+          { year: "numeric", month: "short", day: "numeric" }
+        ).format(new Date(value));
+      } catch {
+        return "";
+      }
+    }
+
+    function formatBytes(bytes) {
+      const value = Number(bytes || 0);
+      if (!value) return "";
+      if (value < 1024 * 1024) return `${(value / 1024).toFixed(0)} KB`;
+      return `${(value / 1024 / 1024).toFixed(1)} MB`;
+    }
+
+    async function loadPlugins() {
+      const grid = document.getElementById("pluginsGrid");
+      if (!grid) return;
+
+      grid.innerHTML =
+        `<div class="plugin-loading">${
+          pluginText(
+            "Загрузка плагинов из GitHub...",
+            "Loading plugins from GitHub..."
+          )
+        }</div>`;
+
+      try {
+        const response = await fetch(PLUGIN_RELEASES_API, {
+          headers: { "Accept": "application/vnd.github+json" }
+        });
+
+        if (!response.ok) {
+          throw new Error(`GitHub API ${response.status}`);
+        }
+
+        const releases = await response.json();
+        const plugins = [];
+
+        for (const release of releases) {
+          for (const asset of (release.assets || [])) {
+            if (!isPluginAsset(asset)) continue;
+
+            plugins.push({
+              name: cleanPluginName(asset.name),
+              filename: asset.name,
+              version: release.tag_name || "—",
+              author: release.author?.login || "MrHaking",
+              date: asset.updated_at || release.published_at,
+              size: asset.size || 0,
+              downloads: asset.download_count || 0,
+              url: asset.browser_download_url,
+              releaseUrl: release.html_url
+            });
+          }
+        }
+
+        if (!plugins.length) {
+          grid.innerHTML = `
+            <div class="plugin-empty">
+              <b>${
+                pluginText(
+                  "Пока нет опубликованных плагинов.",
+                  "No plugins have been published yet."
+                )
+              }</b><br>
+              ${
+                pluginText(
+                  "Владелец может создать GitHub Release и добавить файл с именем KEYGUARD_PLUGIN_Название_v1.0.0.zip.",
+                  "The owner can create a GitHub Release and upload a file named KEYGUARD_PLUGIN_Name_v1.0.0.zip."
+                )
+              }
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = "";
+
+        plugins.forEach(plugin => {
+          const card = document.createElement("article");
+          card.className = "plugin-card";
+
+          card.innerHTML = `
+            <div class="plugin-top">
+              <div class="plugin-icon">🧩</div>
+              <div class="plugin-version">${escapeHtml(plugin.version)}</div>
+            </div>
+
+            <h3>${escapeHtml(plugin.name)}</h3>
+
+            <p>
+              ${pluginText(
+                "Плагин для расширения возможностей KEYGUARD.",
+                "A plugin that extends KEYGUARD functionality."
+              )}
+            </p>
+
+            <div class="plugin-meta">
+              <span>${escapeHtml(plugin.author)}</span>
+              <span>${escapeHtml(formatPluginDate(plugin.date))}</span>
+            </div>
+
+            <div class="plugin-meta">
+              <span>${escapeHtml(formatBytes(plugin.size))}</span>
+              <span>↓ ${Number(plugin.downloads || 0)}</span>
+            </div>
+
+            <div class="plugin-actions">
+              <a class="btn btn-primary"
+                 href="${escapeHtml(plugin.url)}"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                ${pluginText("Скачать", "Download")}
+              </a>
+              <a class="btn btn-secondary"
+                 href="${escapeHtml(plugin.releaseUrl)}"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                GitHub
+              </a>
+            </div>
+          `;
+
+          grid.appendChild(card);
+        });
+
+      } catch (error) {
+        console.warn("Plugin loading failed:", error);
+
+        grid.innerHTML = `
+          <div class="plugin-error">
+            <b>${
+              pluginText(
+                "Не удалось загрузить список плагинов.",
+                "Could not load the plugin list."
+              )
+            }</b><br>
+            ${
+              pluginText(
+                "Проверьте подключение к интернету или откройте GitHub Releases.",
+                "Check your internet connection or open GitHub Releases."
+              )
+            }
+            <br><br>
+            <a class="btn btn-secondary"
+               href="https://github.com/MrHaking/Keyguard/releases"
+               target="_blank"
+               rel="noopener noreferrer">
+              GitHub Releases
+            </a>
+          </div>
+        `;
+      }
+    }
+
+    document.getElementById("refreshPlugins")?.addEventListener(
+      "click",
+      loadPlugins
+    );
+
+    loadPlugins();
 </script><script defer="" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
