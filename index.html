@@ -1134,41 +1134,7 @@
       color: var(--muted);
       line-height: 1.7;
     }
-
-    .admin-panel {
-      margin-top: 20px;
-      padding: 22px;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 18px;
-      align-items: center;
-      border-radius: 18px;
-      background: rgba(139,92,246,.045);
-      border: 1px solid rgba(139,92,246,.15);
-    }
-
-    .admin-panel h3 {
-      margin: 0 0 7px;
-      font-size: 18px;
-    }
-
-    .admin-panel p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .admin-lock {
-      color: #c4b5fd;
-      font-weight: 800;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 7px;
-    }
-
-    .plugin-warning {
+.plugin-warning {
       margin-top: 14px;
       color: #7f91a8;
       font-size: 11px;
@@ -1196,15 +1162,146 @@
       letter-spacing: .12em;
     }
 
+    
+    .owner-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 5000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: rgba(1, 4, 10, .78);
+      backdrop-filter: blur(12px);
+    }
+
+    .owner-modal-backdrop.open {
+      display: flex;
+    }
+
+    .owner-modal {
+      width: min(100%, 500px);
+      border-radius: 24px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(15,25,42,.99), rgba(7,12,21,.99));
+      border: 1px solid rgba(96,165,250,.22);
+      box-shadow: 0 34px 110px rgba(0,0,0,.62);
+    }
+
+    .owner-modal-top {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 18px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .owner-modal-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: .04em;
+    }
+
+    .owner-close {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      background: rgba(255,255,255,.04);
+      color: #aabbd0;
+      font-size: 18px;
+    }
+
+    .owner-close:hover {
+      color: white;
+      background: rgba(255,255,255,.08);
+    }
+
+    .owner-modal-body {
+      padding: 24px;
+    }
+
+    .owner-status {
+      margin-bottom: 18px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.025);
+      border: 1px solid rgba(255,255,255,.06);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .owner-status.ok {
+      color: #b9f6ca;
+      background: rgba(34,197,94,.055);
+      border-color: rgba(34,197,94,.14);
+    }
+
+    .owner-status.denied {
+      color: #fecaca;
+      background: rgba(239,68,68,.055);
+      border-color: rgba(239,68,68,.14);
+    }
+
+    .owner-profile {
+      display: none;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 18px;
+      padding: 13px;
+      border-radius: 14px;
+      background: rgba(59,130,246,.055);
+      border: 1px solid rgba(96,165,250,.12);
+    }
+
+    .owner-profile.visible {
+      display: flex;
+    }
+
+    .owner-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid rgba(96,165,250,.25);
+    }
+
+    .owner-profile b {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .owner-profile small {
+      color: var(--muted);
+    }
+
+    .owner-actions {
+      display: grid;
+      gap: 10px;
+    }
+
+    .owner-actions .btn {
+      width: 100%;
+    }
+
+    .owner-help {
+      margin-top: 14px;
+      color: #68798f;
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
     @media (max-width: 900px) {
       .plugins-grid {
         grid-template-columns: 1fr 1fr;
       }
-
-      .admin-panel {
-        grid-template-columns: 1fr;
-      }
-    }
+}
 
     @media (max-width: 600px) {
       .plugins-grid {
@@ -1623,7 +1720,6 @@
 </div>
 </div>
 </section>
-
 <section id="plugins">
 <div class="container">
 <div class="section-head reveal">
@@ -1632,28 +1728,13 @@
 <p>Расширяйте возможности KEYGUARD дополнительными модулями. Плагины публикуются владельцем проекта через GitHub Releases.</p>
 </div>
 <div class="plugins-toolbar reveal">
-<div class="plugins-note">
-        Сайт автоматически показывает опубликованные плагины из репозитория KEYGUARD.
-        Для публикации используйте имя файла, начинающееся с <b>KEYGUARD_PLUGIN_</b>.
-      </div>
+<div class="plugins-note">Здесь отображаются опубликованные плагины KEYGUARD. Выберите нужный плагин и нажмите «Скачать».</div>
 <button class="btn btn-secondary" id="refreshPlugins" type="button">↻ Обновить</button>
 </div>
 <div class="plugins-grid reveal" id="pluginsGrid">
 <div class="plugin-loading">Загрузка плагинов из GitHub...</div>
 </div>
-<div class="admin-panel reveal">
-<div>
-<div class="admin-lock">🔐 ADMIN / OWNER</div>
-<h3>Управление плагинами</h3>
-<p>
-          Загрузка выполняется через GitHub. На сайте нет скрытого админ-пароля:
-          GitHub сам проверяет, есть ли у аккаунта право публиковать файлы в репозитории.
-        </p>
-</div>
-<a class="btn btn-primary" href="https://github.com/MrHaking/Keyguard/releases/new" rel="noopener noreferrer" target="_blank">
-        Опубликовать плагин
-      </a>
-</div>
+
 <div class="plugin-warning reveal">
       ⚠ Плагины могут содержать исполняемый код. Устанавливайте только плагины,
       которым доверяете, и проверяйте автора/источник перед использованием.
@@ -1739,7 +1820,6 @@
               </div>
 </div>
 </div>
-
 <div class="faq-item">
 <button class="faq-q">
 <span>Какой пароль KIOSK установлен по умолчанию?</span>
@@ -1784,6 +1864,13 @@
 <script>
     // ---------------- LANGUAGE SYSTEM ----------------
     const TRANSLATIONS = {
+  "Доступ выдаётся только после проверки GitHub-аккаунта на сервере. В HTML нет пароля администратора, GitHub Client Secret или токена.": "Access is granted only after the GitHub account is verified on the server. The HTML contains no admin password, GitHub Client Secret, or token.",
+  "Выйти из админки": "Sign out of admin",
+  "Управление Releases": "Manage Releases",
+  "+ ОПУБЛИКОВАТЬ ПЛАГИН": "+ PUBLISH PLUGIN",
+  "Войти через GitHub": "Sign in with GitHub",
+  "Проверка доступа...": "Checking access...",
+  "Здесь отображаются опубликованные плагины KEYGUARD. Выберите нужный плагин и нажмите «Скачать».": "Published KEYGUARD plugins are shown here. Choose a plugin and click Download.",
   "KEYGUARD Plugins": "KEYGUARD Plugins",
   "Расширяйте возможности KEYGUARD дополнительными модулями. Плагины публикуются владельцем проекта через GitHub Releases.": "Extend KEYGUARD with additional modules. Plugins are published by the project owner through GitHub Releases.",
   "Сайт автоматически показывает опубликованные плагины из репозитория KEYGUARD. Для публикации используйте имя файла, начинающееся с KEYGUARD_PLUGIN_.": "The site automatically shows published plugins from the KEYGUARD repository. To publish one, use a filename beginning with KEYGUARD_PLUGIN_.",
@@ -2364,14 +2451,14 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
             <div class="plugin-empty">
               <b>${
                 pluginText(
-                  "Пока нет опубликованных плагинов.",
-                  "No plugins have been published yet."
+                  "На данный момент плагинов нет.",
+                  "There are currently no plugins."
                 )
               }</b><br>
               ${
                 pluginText(
-                  "Владелец может создать GitHub Release и добавить файл с именем KEYGUARD_PLUGIN_Название_v1.0.0.zip.",
-                  "The owner can create a GitHub Release and upload a file named KEYGUARD_PLUGIN_Name_v1.0.0.zip."
+                  "Проверьте страницу позже.",
+                  "Check this page again later."
                 )
               }
             </div>
@@ -2464,6 +2551,178 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
     );
 
     loadPlugins();
+
+
+    // ---------------- SECURE OWNER ENTRY ----------------
+    // There is intentionally no visible ADMIN link.
+    // Ctrl+Shift+F10 only opens the login UI; it does NOT grant access.
+    const OWNER_MODAL = document.getElementById("ownerModal");
+    const OWNER_STATUS = document.getElementById("ownerStatus");
+    const OWNER_PROFILE = document.getElementById("ownerProfile");
+    const OWNER_LOGIN = document.getElementById("ownerLogin");
+    const OWNER_AVATAR = document.getElementById("ownerAvatar");
+    const OWNER_LOGGED_OUT = document.getElementById("ownerLoggedOutActions");
+    const OWNER_LOGGED_IN = document.getElementById("ownerLoggedInActions");
+
+    function ownerText(ru, en) {
+      return getSiteLanguage() === "en" ? en : ru;
+    }
+
+    function openOwnerModal() {
+      if (!OWNER_MODAL) return;
+      OWNER_MODAL.classList.add("open");
+      OWNER_MODAL.setAttribute("aria-hidden", "false");
+      checkOwnerSession();
+    }
+
+    function closeOwnerModal() {
+      if (!OWNER_MODAL) return;
+      OWNER_MODAL.classList.remove("open");
+      OWNER_MODAL.setAttribute("aria-hidden", "true");
+    }
+
+    async function checkOwnerSession() {
+      if (!OWNER_STATUS) return;
+
+      OWNER_STATUS.className = "owner-status";
+      OWNER_STATUS.textContent = ownerText(
+        "Проверка GitHub-аккаунта...",
+        "Checking GitHub account..."
+      );
+
+      if (OWNER_PROFILE) OWNER_PROFILE.classList.remove("visible");
+      if (OWNER_LOGGED_IN) OWNER_LOGGED_IN.style.display = "none";
+      if (OWNER_LOGGED_OUT) OWNER_LOGGED_OUT.style.display = "none";
+
+      try {
+        const response = await fetch("/api/admin/me", {
+          method: "GET",
+          credentials: "same-origin",
+          headers: { "Accept": "application/json" }
+        });
+
+        const data = await response.json().catch(() => ({}));
+
+        if (response.ok && data.authorized) {
+          OWNER_STATUS.className = "owner-status ok";
+          OWNER_STATUS.textContent = ownerText(
+            "Доступ владельца подтверждён.",
+            "Owner access verified."
+          );
+
+          if (OWNER_LOGIN) OWNER_LOGIN.textContent = data.login || "MrHaking";
+          if (OWNER_AVATAR) {
+            OWNER_AVATAR.src = data.avatar_url || "";
+            OWNER_AVATAR.alt = data.login || "Owner";
+          }
+          if (OWNER_PROFILE) OWNER_PROFILE.classList.add("visible");
+          if (OWNER_LOGGED_IN) OWNER_LOGGED_IN.style.display = "grid";
+          if (OWNER_LOGGED_OUT) OWNER_LOGGED_OUT.style.display = "none";
+          return;
+        }
+
+        if (response.status === 403) {
+          OWNER_STATUS.className = "owner-status denied";
+          OWNER_STATUS.textContent = ownerText(
+            "Этот GitHub-аккаунт не является владельцем KEYGUARD.",
+            "This GitHub account is not the KEYGUARD owner."
+          );
+          if (OWNER_LOGGED_OUT) OWNER_LOGGED_OUT.style.display = "grid";
+          return;
+        }
+
+        OWNER_STATUS.className = "owner-status";
+        OWNER_STATUS.textContent = ownerText(
+          "Для доступа владельца войдите через GitHub.",
+          "Sign in with GitHub for owner access."
+        );
+        if (OWNER_LOGGED_OUT) OWNER_LOGGED_OUT.style.display = "grid";
+
+      } catch (error) {
+        OWNER_STATUS.className = "owner-status denied";
+        OWNER_STATUS.textContent = ownerText(
+          "Сервер авторизации недоступен. Этот режим работает после публикации сайта на Vercel.",
+          "The authentication server is unavailable. This mode works after the site is deployed to Vercel."
+        );
+        if (OWNER_LOGGED_OUT) OWNER_LOGGED_OUT.style.display = "grid";
+      }
+    }
+
+    document.addEventListener("keydown", event => {
+      if (
+        event.ctrlKey &&
+        event.shiftKey &&
+        event.key === "F10"
+      ) {
+        event.preventDefault();
+        openOwnerModal();
+      }
+
+      if (event.key === "Escape" && OWNER_MODAL?.classList.contains("open")) {
+        closeOwnerModal();
+      }
+    });
+
+    document.getElementById("ownerClose")?.addEventListener(
+      "click",
+      closeOwnerModal
+    );
+
+    OWNER_MODAL?.addEventListener("click", event => {
+      if (event.target === OWNER_MODAL) {
+        closeOwnerModal();
+      }
+    });
+
+    // OAuth callback returns with ?admin=1. Open the panel once, then
+    // remove the query marker from the visible URL.
+    const ownerUrl = new URL(window.location.href);
+    if (ownerUrl.searchParams.get("admin") === "1") {
+      ownerUrl.searchParams.delete("admin");
+      history.replaceState({}, "", ownerUrl.pathname + ownerUrl.search + ownerUrl.hash);
+      setTimeout(openOwnerModal, 120);
+    }
 </script><script defer="" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<div aria-hidden="true" class="owner-modal-backdrop" id="ownerModal">
+<div aria-labelledby="ownerModalTitle" aria-modal="true" class="owner-modal" role="dialog">
+<div class="owner-modal-top">
+<div class="owner-modal-title" id="ownerModalTitle">🔐 KEYGUARD OWNER</div>
+<button aria-label="Close" class="owner-close" id="ownerClose" type="button">×</button>
+</div>
+<div class="owner-modal-body">
+<div class="owner-status" id="ownerStatus">
+        Проверка доступа...
+      </div>
+<div class="owner-profile" id="ownerProfile">
+<img alt="" class="owner-avatar" id="ownerAvatar"/>
+<div>
+<b id="ownerLogin">GitHub</b>
+<small>Owner verified</small>
+</div>
+</div>
+<div class="owner-actions" id="ownerLoggedOutActions">
+<a class="btn btn-primary" href="/api/auth/login" id="ownerLoginButton">
+          Войти через GitHub
+        </a>
+</div>
+<div class="owner-actions" id="ownerLoggedInActions" style="display:none;">
+<a class="btn btn-primary" href="https://github.com/MrHaking/Keyguard/releases/new" rel="noopener noreferrer" target="_blank">
+          + ОПУБЛИКОВАТЬ ПЛАГИН
+        </a>
+<a class="btn btn-secondary" href="https://github.com/MrHaking/Keyguard/releases" rel="noopener noreferrer" target="_blank">
+          Управление Releases
+        </a>
+<a class="btn btn-secondary" href="/api/auth/logout">
+          Выйти из админки
+        </a>
+</div>
+<div class="owner-help">
+        Доступ выдаётся только после проверки GitHub-аккаунта на сервере.
+        В HTML нет пароля администратора, GitHub Client Secret или токена.
+      </div>
+</div>
+</div>
+</div>
 </body>
 </html>
