@@ -2555,7 +2555,7 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
 
     // ---------------- SECURE OWNER ENTRY ----------------
     // There is intentionally no visible ADMIN link.
-    // Ctrl+Shift+F10 only opens the login UI; it does NOT grant access.
+    // Ctrl+Alt+Shift+K only opens the login UI; it does NOT grant access.
     const OWNER_MODAL = document.getElementById("ownerModal");
     const OWNER_STATUS = document.getElementById("ownerStatus");
     const OWNER_PROFILE = document.getElementById("ownerProfile");
@@ -2651,8 +2651,9 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
     document.addEventListener("keydown", event => {
       if (
         event.ctrlKey &&
+        event.altKey &&
         event.shiftKey &&
-        event.key === "F10"
+        String(event.key).toLowerCase() === "k"
       ) {
         event.preventDefault();
         openOwnerModal();
