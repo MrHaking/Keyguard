@@ -1297,6 +1297,99 @@
       line-height: 1.55;
     }
 
+    
+    .owner-header-button {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 6px 11px 6px 7px;
+      border: 1px solid rgba(96,165,250,.22);
+      border-radius: 13px;
+      background: linear-gradient(180deg, rgba(59,130,246,.10), rgba(139,92,246,.07));
+      color: #e9f3ff;
+      cursor: pointer;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .02em;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+
+    .owner-header-button.visible {
+      display: inline-flex;
+    }
+
+    .owner-header-button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(96,165,250,.42);
+      background: linear-gradient(180deg, rgba(59,130,246,.16), rgba(139,92,246,.11));
+    }
+
+    .owner-header-avatar-wrap {
+      width: 29px;
+      height: 29px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      flex: 0 0 29px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(255,255,255,.055);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .owner-header-avatar {
+      width: 100%;
+      height: 100%;
+      display: none;
+      object-fit: cover;
+    }
+
+    .owner-header-avatar.loaded {
+      display: block;
+    }
+
+    .owner-header-avatar-fallback {
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    .owner-header-avatar.loaded + .owner-header-avatar-fallback {
+      display: none;
+    }
+
+    .owner-header-name {
+      max-width: 110px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .owner-header-check {
+      display: grid;
+      place-items: center;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(34,197,94,.13);
+      border: 1px solid rgba(34,197,94,.22);
+      color: #86efac;
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    @media (max-width: 720px) {
+      .owner-header-name {
+        display: none;
+      }
+
+      .owner-header-button {
+        padding-right: 7px;
+      }
+    }
+
     @media (max-width: 900px) {
       .plugins-grid {
         grid-template-columns: 1fr 1fr;
@@ -1468,7 +1561,14 @@
 <div aria-hidden="true" id="google_translate_element"></div>
 <div class="nav-actions">
 <a class="btn btn-secondary" href="#features">Подробнее</a>
-<button class="btn btn-primary" id="downloadTop">Скачать</button>
+<button class="btn btn-primary" id="downloadTop">Скачать</button><button aria-label="Open owner panel" class="owner-header-button" id="ownerHeaderButton" title="KEYGUARD Owner" type="button">
+<span class="owner-header-avatar-wrap">
+<img alt="" class="owner-header-avatar" id="ownerHeaderAvatar"/>
+<span class="owner-header-avatar-fallback" id="ownerHeaderAvatarFallback">👤</span>
+</span>
+<span class="owner-header-name" id="ownerHeaderName">MrHaking</span>
+<span class="owner-header-check">✓</span>
+</button>
 </div>
 </nav>
 </div>
@@ -1863,7 +1963,7 @@
 <div aria-hidden="true" class="owner-modal-backdrop" id="ownerModal">
 <div aria-labelledby="ownerModalTitle" aria-modal="true" class="owner-modal" role="dialog">
 <div class="owner-modal-top">
-<div class="owner-modal-title" id="ownerModalTitle">🔐 KEYGUARD OWNER</div>
+<div class="owner-modal-title" id="ownerModalTitle">🔐 KEYGUARD OWNER PANEL</div>
 <button aria-label="Close" class="owner-close" id="ownerClose" type="button">×</button>
 </div>
 <div class="owner-modal-body">
@@ -1874,7 +1974,7 @@
 <img alt="" class="owner-avatar" id="ownerAvatar"/>
 <div>
 <b id="ownerLogin">GitHub</b>
-<small>Owner verified</small>
+<small>✓ GitHub owner verified</small>
 </div>
 </div>
 <div class="owner-actions" id="ownerLoggedOutActions">
@@ -2601,9 +2701,51 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
     const OWNER_AVATAR = document.getElementById("ownerAvatar");
     const OWNER_LOGGED_OUT = document.getElementById("ownerLoggedOutActions");
     const OWNER_LOGGED_IN = document.getElementById("ownerLoggedInActions");
+    const OWNER_HEADER_BUTTON = document.getElementById("ownerHeaderButton");
+    const OWNER_HEADER_NAME = document.getElementById("ownerHeaderName");
+    const OWNER_HEADER_AVATAR = document.getElementById("ownerHeaderAvatar");
+
 
     function ownerText(ru, en) {
       return getSiteLanguage() === "en" ? en : ru;
+    }
+
+    function hideOwnerHeaderProfile() {
+      OWNER_HEADER_BUTTON?.classList.remove("visible");
+
+      if (OWNER_HEADER_NAME) {
+        OWNER_HEADER_NAME.textContent = "MrHaking";
+      }
+
+      if (OWNER_HEADER_AVATAR) {
+        OWNER_HEADER_AVATAR.classList.remove("loaded");
+        OWNER_HEADER_AVATAR.removeAttribute("src");
+      }
+    }
+
+    function showOwnerHeaderProfile(data = {}) {
+      if (OWNER_HEADER_NAME) {
+        OWNER_HEADER_NAME.textContent = data.login || "MrHaking";
+      }
+
+      if (OWNER_HEADER_AVATAR) {
+        const avatarUrl = String(data.avatar_url || "").trim();
+
+        if (avatarUrl) {
+          OWNER_HEADER_AVATAR.onload = () => {
+            OWNER_HEADER_AVATAR.classList.add("loaded");
+          };
+          OWNER_HEADER_AVATAR.onerror = () => {
+            OWNER_HEADER_AVATAR.classList.remove("loaded");
+          };
+          OWNER_HEADER_AVATAR.src = avatarUrl;
+        } else {
+          OWNER_HEADER_AVATAR.classList.remove("loaded");
+          OWNER_HEADER_AVATAR.removeAttribute("src");
+        }
+      }
+
+      OWNER_HEADER_BUTTON?.classList.add("visible");
     }
 
     function openOwnerModal() {
@@ -2621,6 +2763,8 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
 
     async function checkOwnerSession() {
       if (!OWNER_STATUS) return;
+
+      hideOwnerHeaderProfile();
 
       OWNER_STATUS.className = "owner-status";
       OWNER_STATUS.textContent = ownerText(
@@ -2642,6 +2786,7 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
         const data = await response.json().catch(() => ({}));
 
         if (response.ok && data.authorized) {
+          showOwnerHeaderProfile(data);
           OWNER_STATUS.className = "owner-status ok";
           OWNER_STATUS.textContent = ownerText(
             "Доступ владельца подтверждён.",
@@ -2660,6 +2805,7 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
         }
 
         if (response.status === 403) {
+          hideOwnerHeaderProfile();
           OWNER_STATUS.className = "owner-status denied";
           OWNER_STATUS.textContent = ownerText(
             "Этот GitHub-аккаунт не является владельцем KEYGUARD.",
@@ -2677,6 +2823,7 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
         if (OWNER_LOGGED_OUT) OWNER_LOGGED_OUT.style.display = "grid";
 
       } catch (error) {
+        hideOwnerHeaderProfile();
         OWNER_STATUS.className = "owner-status denied";
         OWNER_STATUS.textContent = ownerText(
           "Сервер авторизации недоступен. Этот режим работает после публикации сайта на Vercel.",
@@ -2702,6 +2849,8 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
       }
     });
 
+    OWNER_HEADER_BUTTON?.addEventListener("click", openOwnerModal);
+
     document.getElementById("ownerClose")?.addEventListener(
       "click",
       closeOwnerModal
@@ -2713,6 +2862,10 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
       }
     });
 
+    // Check an existing owner session on every page load.
+    // The profile button remains hidden unless the server confirms the owner.
+    checkOwnerSession();
+
     // OAuth callback returns with ?admin=1. Open the panel once, then
     // remove the query marker from the visible URL.
     const ownerUrl = new URL(window.location.href);
@@ -2722,6 +2875,5 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
       setTimeout(openOwnerModal, 120);
     }
 </script><script defer="" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
 </body>
 </html>
