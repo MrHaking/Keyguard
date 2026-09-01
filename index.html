@@ -1734,7 +1734,6 @@
 <div class="plugins-grid reveal" id="pluginsGrid">
 <div class="plugin-loading">Загрузка плагинов из GitHub...</div>
 </div>
-
 <div class="plugin-warning reveal">
       ⚠ Плагины могут содержать исполняемый код. Устанавливайте только плагины,
       которым доверяете, и проверяйте автора/источник перед использованием.
@@ -1861,7 +1860,46 @@
 <div class="toast" id="toast">
     Добавьте ссылку на ваш KEYGUARD_Setup.exe в JavaScript-переменную DOWNLOAD_URL.
   </div>
-<script>
+<div aria-hidden="true" class="owner-modal-backdrop" id="ownerModal">
+<div aria-labelledby="ownerModalTitle" aria-modal="true" class="owner-modal" role="dialog">
+<div class="owner-modal-top">
+<div class="owner-modal-title" id="ownerModalTitle">🔐 KEYGUARD OWNER</div>
+<button aria-label="Close" class="owner-close" id="ownerClose" type="button">×</button>
+</div>
+<div class="owner-modal-body">
+<div class="owner-status" id="ownerStatus">
+        Проверка доступа...
+      </div>
+<div class="owner-profile" id="ownerProfile">
+<img alt="" class="owner-avatar" id="ownerAvatar"/>
+<div>
+<b id="ownerLogin">GitHub</b>
+<small>Owner verified</small>
+</div>
+</div>
+<div class="owner-actions" id="ownerLoggedOutActions">
+<a class="btn btn-primary" href="/api/auth/login" id="ownerLoginButton">
+          Войти через GitHub
+        </a>
+</div>
+<div class="owner-actions" id="ownerLoggedInActions" style="display:none;">
+<a class="btn btn-primary" href="https://github.com/MrHaking/Keyguard/releases/new" rel="noopener noreferrer" target="_blank">
+          + ОПУБЛИКОВАТЬ ПЛАГИН
+        </a>
+<a class="btn btn-secondary" href="https://github.com/MrHaking/Keyguard/releases" rel="noopener noreferrer" target="_blank">
+          Управление Releases
+        </a>
+<a class="btn btn-secondary" href="/api/auth/logout">
+          Выйти из админки
+        </a>
+</div>
+<div class="owner-help">
+        Доступ выдаётся только после проверки GitHub-аккаунта на сервере.
+        В HTML нет пароля администратора, GitHub Client Secret или токена.
+      </div>
+</div>
+</div>
+</div><script>
     // ---------------- LANGUAGE SYSTEM ----------------
     const TRANSLATIONS = {
   "Доступ выдаётся только после проверки GitHub-аккаунта на сервере. В HTML нет пароля администратора, GitHub Client Secret или токена.": "Access is granted only after the GitHub account is verified on the server. The HTML contains no admin password, GitHub Client Secret, or token.",
@@ -2653,7 +2691,7 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
         event.ctrlKey &&
         event.altKey &&
         event.shiftKey &&
-        String(event.key).toLowerCase() === "k"
+        event.code === "KeyK"
       ) {
         event.preventDefault();
         openOwnerModal();
@@ -2685,45 +2723,5 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
     }
 </script><script defer="" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-<div aria-hidden="true" class="owner-modal-backdrop" id="ownerModal">
-<div aria-labelledby="ownerModalTitle" aria-modal="true" class="owner-modal" role="dialog">
-<div class="owner-modal-top">
-<div class="owner-modal-title" id="ownerModalTitle">🔐 KEYGUARD OWNER</div>
-<button aria-label="Close" class="owner-close" id="ownerClose" type="button">×</button>
-</div>
-<div class="owner-modal-body">
-<div class="owner-status" id="ownerStatus">
-        Проверка доступа...
-      </div>
-<div class="owner-profile" id="ownerProfile">
-<img alt="" class="owner-avatar" id="ownerAvatar"/>
-<div>
-<b id="ownerLogin">GitHub</b>
-<small>Owner verified</small>
-</div>
-</div>
-<div class="owner-actions" id="ownerLoggedOutActions">
-<a class="btn btn-primary" href="/api/auth/login" id="ownerLoginButton">
-          Войти через GitHub
-        </a>
-</div>
-<div class="owner-actions" id="ownerLoggedInActions" style="display:none;">
-<a class="btn btn-primary" href="https://github.com/MrHaking/Keyguard/releases/new" rel="noopener noreferrer" target="_blank">
-          + ОПУБЛИКОВАТЬ ПЛАГИН
-        </a>
-<a class="btn btn-secondary" href="https://github.com/MrHaking/Keyguard/releases" rel="noopener noreferrer" target="_blank">
-          Управление Releases
-        </a>
-<a class="btn btn-secondary" href="/api/auth/logout">
-          Выйти из админки
-        </a>
-</div>
-<div class="owner-help">
-        Доступ выдаётся только после проверки GitHub-аккаунта на сервере.
-        В HTML нет пароля администратора, GitHub Client Secret или токена.
-      </div>
-</div>
-</div>
-</div>
 </body>
 </html>
