@@ -1,3 +1,174 @@
+
+
+Анализ ошибочен
+Готово. Я внёс всё в последнюю сборку.
+
+Теперь TOUCHPAD BLOCK находится во вкладке KEYBINDS, а из Settings он убран. Для Precision Touchpad я усилил применение настроек: запись проверяется после изменения, есть запасной способ через реестр Windows и принудительное обновление пользовательских настроек. Для 3/4-пальцевых свайпов Windows действительно использует ThreeFingerSlideEnabled и FourFingerSlideEnabled. 
+
+В Settings появилась кнопка 📄 ЛОГИ. В окне есть ТЕКУЩИЕ ЛОГИ и СТАРЫЕ ЛОГИ. При открытии старого лога список исчезает, лог показывается в этом же окне, а сверху появляется ← НАЗАД. При смене русского/английского языка окно логов тоже перестраивается на выбранный язык.
+
+Логи теперь хранятся так:
+
+logs/
+├── current.log
+└── history/
+    ├── keyguard_2026-09-02_20-10-15.log
+    └── ...
+В них записываются автозапуск, регистрация макросов, запуск Action, найденный Python и результат блокировки Touchpad. Поэтому если Touchpad снова не сработает, можно сразу открыть Settings → ЛОГИ и увидеть, записались ли значения Windows.
+
+Скачать изменённый interfeys.py
+
+Скачать полный пакет для пересборки KEYGUARD
+
+Файл проверен на синтаксис, и предыдущие исправления автозапуска, фоновых макросов и Ctrl+V в Action сохранены. 
+
+
+interfeys_TOUCHPAD_KEYBINDS_LOGS_FIXED.py
+Код
+
+
+a574e501-b77a-4a6c-a894-378375c7f97f.png
+надо добавить значок для нашего сайта и добавь информацию про логи 
+
+Да, dada. Надо добавить favicon для вкладки сайта и блок про логи.
+
+1) Добавить значок сайта
+Положите файл иконки в папку сайта, например:
+
+favicon.ico
+или
+
+favicon.png
+
+Потом в <head> вставьте это:
+
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" href="favicon.ico">
+Если у вас PNG, тогда так:
+
+<link rel="icon" type="image/png" href="favicon.png">
+2) Добавить информацию про логи
+Можно добавить отдельную карточку или раздел, например LOGS / ЛОГИ.
+
+Вот готовый HTML-блок:
+
+<section id="logs" class="section">
+  <div class="section-title" data-ru="ЛОГИ" data-en="LOGS">ЛОГИ</div>
+  
+  <div class="feature-card">
+    <h3 data-ru="Система логов" data-en="Log system">Система логов</h3>
+    <p data-ru="KEYGUARD сохраняет текущие и старые логи для диагностики работы программы."
+       data-en="KEYGUARD stores current and old logs for diagnostics.">
+      KEYGUARD сохраняет текущие и старые логи для диагностики работы программы.
+    </p>
+  </div>
+
+  <div class="feature-card">
+    <h3 data-ru="Что записывается" data-en="What is recorded">Что записывается</h3>
+    <p data-ru="В логи попадают автозапуск, макросы, Actions, проверка Python, Touchpad и другие события."
+       data-en="Logs include autostart, macros, Actions, Python checks, Touchpad events and other activity.">
+      В логи попадают автозапуск, макросы, Actions, проверка Python, Touchpad и другие события.
+    </p>
+  </div>
+
+  <div class="feature-card">
+    <h3 data-ru="Просмотр логов" data-en="Viewing logs">Просмотр логов</h3>
+    <p data-ru="В программе доступны ТЕКУЩИЕ ЛОГИ и СТАРЫЕ ЛОГИ. Старый лог открывается в том же окне с кнопкой «Назад»."
+       data-en="The app provides CURRENT LOGS and OLD LOGS. An old log opens in the same window with a Back button.">
+      В программе доступны ТЕКУЩИЕ ЛОГИ и СТАРЫЕ ЛОГИ. Старый лог открывается в том же окне с кнопкой «Назад».
+    </p>
+  </div>
+</section>
+3) Если хотите добавить пункт в меню
+Верхнее меню:
+
+<a href="#logs" data-ru="Логи" data-en="Logs">Логи</a>
+4) Если у вас есть CSS для карточек
+Если таких классов нет, добавьте стиль:
+
+<style>
+.section {
+  padding: 60px 20px;
+}
+
+.section-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.feature-card {
+  background: #111827;
+  border: 1px solid #2a3441;
+  border-radius: 14px;
+  padding: 18px;
+  margin-bottom: 16px;
+  color: white;
+}
+
+.feature-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 20px;
+}
+
+.feature-card p {
+  margin: 0;
+  color: #c7d2fe;
+  line-height: 1.6;
+}
+</style>
+5) Коротко: что именно сделать
+В <head>:
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="shortcut icon" href="favicon.ico">
+В меню:
+<a href="#logs" data-ru="Логи" data-en="Logs">Логи</a>
+В контент:
+вставить блок <section id="logs"> ... </section>
+
+Если хотите, я могу сразу дать вам полностью готовый обновлённый index.html с:
+
+значком сайта,
+
+вкладкой Логи,
+
+текстом про текущие и старые логи,
+
+и чтобы всё работало на русском и английском.
+
+
+да
+
+Готово. Я обновил нашу последнюю версию сайта с OWNER-профилем.
+
+Теперь:
+
+во вкладке браузера показывается значок KEYGUARD, а не обычный значок файла;
+
+favicon встроен прямо в index.html, отдельный файл загружать на Vercel не обязательно;
+
+в верхнее меню добавлен пункт Логи / Logs;
+
+появился отдельный раздел про текущие и старые логи;
+
+указано, что логируются автозапуск, макросы, Actions, Python и Touchpad;
+
+показано, что старый лог открывается в том же окне с кнопкой ← Назад;
+
+добавлен вопрос про логи в FAQ;
+
+русский/английский перевод добавлен, остальные языки продолжат работать через автоперевод;
+
+OWNER 👤 MrHaking ✓, Ctrl+Alt+Shift+K, Plugins и загрузка KEYGUARD сохранены.
+
+Скачать готовый обновлённый index_LOGS_FAVICON.html
+
+Отдельно значок, если понадобится:
+
+Скачать favicon.png
+
+Для GitHub просто замените старый index.html этим файлом и назовите его index.html, затем сделайте Redeploy в Vercel.
+
 <!DOCTYPE html>
 
 <html lang="ru">
@@ -5,7 +176,9 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta content="#050811" name="theme-color"/>
-<meta content="KEYGUARD — Windows-приложение для управления KIOSK-режимом, блокировкой клавиш, макросами и фоновым запуском." name="description"/>
+<meta content="KEYGUARD — Windows-приложение для KIOSK-режима, блокировки клавиш, макросов, фонового запуска и встроенной диагностики через логи." name="description"/>
+<link rel="icon" type="image/png" sizes="64x64" href="data:image/png;base64,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"/>
+<link rel="apple-touch-icon" href="data:image/png;base64,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"/>
 <title>KEYGUARD — Kiosk &amp; Keyboard Control</title>
 <style>
     :root {
@@ -644,6 +817,47 @@
 
     .terminal .blue {
       color: #74a9ff;
+    }
+
+    .logs-preview {
+      width: 100%;
+      text-align: left;
+    }
+
+    .logs-preview-head {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .logs-preview-tab {
+      padding: 7px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.04);
+      color: #8ea0b7;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .logs-preview-tab.active {
+      color: white;
+      background: rgba(59,130,246,.14);
+      border-color: rgba(96,165,250,.25);
+    }
+
+    .logs-preview-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      color: #d8e7fb;
+      font-family: "Segoe UI", Arial, sans-serif;
+      font-weight: 800;
+      font-size: 13px;
     }
 
     .security-strip {
@@ -1538,7 +1752,9 @@
 <div class="nav-links">
 <a href="#features">Возможности</a>
 <a href="#kiosk">KIOSK</a>
-<a href="#plugins">PLUGINS</a><a href="#safety">Безопасность</a>
+<a href="#plugins">PLUGINS</a>
+<a href="#logs">Логи</a>
+<a href="#safety">Безопасность</a>
 <a href="#faq">FAQ</a>
 </div>
 <div class="language-picker" id="languagePicker">
@@ -1840,6 +2056,71 @@
     </div>
 </div>
 </section>
+<section id="logs">
+<div class="container">
+<div class="section-head reveal">
+<div class="eyebrow">Диагностика</div>
+<h2>Текущие и старые логи</h2>
+<p>
+            KEYGUARD ведёт встроенные диагностические логи, чтобы было проще понять,
+            что произошло при автозапуске, регистрации макросов, запуске Action,
+            поиске Python или изменении настроек Touchpad.
+          </p>
+</div>
+<div class="showcase">
+<div class="panel reveal">
+<h3>Логи без выхода из KEYGUARD</h3>
+<p>
+              В Settings кнопка «ЛОГИ» открывает встроенное окно просмотра.
+              Текущий сеанс и история прошлых запусков доступны в одном месте.
+            </p>
+<div class="check-list">
+<div class="check"><i>✓</i><span>Текущий лог хранится в logs/current.log</span></div>
+<div class="check"><i>✓</i><span>Старые логи автоматически сохраняются в logs/history</span></div>
+<div class="check"><i>✓</i><span>Старый лог открывается в том же окне с кнопкой «← Назад»</span></div>
+<div class="check"><i>✓</i><span>Можно обновлять, копировать, очищать и удалять логи</span></div>
+</div>
+</div>
+<div class="monitor reveal">
+<div class="monitor-content logs-preview">
+<div class="logs-preview-title">
+<span>KEYGUARD LOGS</span>
+<span class="badge green">LIVE</span>
+</div>
+<div class="logs-preview-head">
+<span class="logs-preview-tab active">ТЕКУЩИЕ ЛОГИ</span>
+<span class="logs-preview-tab">СТАРЫЕ ЛОГИ</span>
+</div>
+<div class="terminal">
+<div><span class="blue">[20:12:04]</span> KEYGUARD session started</div>
+<div><span class="green">[20:12:05]</span> Macro hotkey registered</div>
+<div><span class="blue">[20:12:08]</span> Python runner found</div>
+<div><span class="green">[20:13:11]</span> Touchpad block requested</div>
+<div><span class="blue">[20:13:12]</span> Action finished: exit=0</div>
+</div>
+</div>
+</div>
+</div>
+<div class="security-strip reveal">
+<div class="security-item">
+<b>LIVE</b>
+<span>текущий сеанс</span>
+</div>
+<div class="security-item">
+<b>HISTORY</b>
+<span>старые запуски</span>
+</div>
+<div class="security-item">
+<b>5+</b>
+<span>типов диагностики</span>
+</div>
+<div class="security-item">
+<b>RU / EN</b>
+<span>интерфейс логов</span>
+</div>
+</div>
+</div>
+</section>
 <section id="safety">
 <div class="container">
 <div class="safety reveal">
@@ -1892,6 +2173,19 @@
 <div>
                 Да. В настройках можно включить автозапуск и фоновый режим.
                 После входа в Windows программа может появиться только в системном трее.
+              </div>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-q">
+<span>Что записывается в логи KEYGUARD?</span>
+<span>+</span>
+</button>
+<div class="faq-a">
+<div>
+                Логи помогают диагностировать автозапуск, регистрацию макросов,
+                запуск Actions, обнаружение Python и работу Touchpad.
+                Текущие и старые логи можно открыть прямо внутри KEYGUARD.
               </div>
 </div>
 </div>
@@ -2002,6 +2296,24 @@
 </div><script>
     // ---------------- LANGUAGE SYSTEM ----------------
     const TRANSLATIONS = {
+  "Логи": "Logs",
+  "Диагностика": "Diagnostics",
+  "Текущие и старые логи": "Current and old logs",
+  "KEYGUARD ведёт встроенные диагностические логи, чтобы было проще понять, что произошло при автозапуске, регистрации макросов, запуске Action, поиске Python или изменении настроек Touchpad.": "KEYGUARD keeps built-in diagnostic logs so you can see what happened during autostart, macro registration, Action execution, Python detection, or Touchpad setting changes.",
+  "Логи без выхода из KEYGUARD": "Logs without leaving KEYGUARD",
+  "В Settings кнопка «ЛОГИ» открывает встроенное окно просмотра. Текущий сеанс и история прошлых запусков доступны в одном месте.": "In Settings, the LOGS button opens the built-in viewer. The current session and history from previous launches are available in one place.",
+  "Текущий лог хранится в logs/current.log": "The current log is stored in logs/current.log",
+  "Старые логи автоматически сохраняются в logs/history": "Old logs are automatically saved in logs/history",
+  "Старый лог открывается в том же окне с кнопкой «← Назад»": "An old log opens in the same window with a ← Back button",
+  "Можно обновлять, копировать, очищать и удалять логи": "Logs can be refreshed, copied, cleared, and deleted",
+  "ТЕКУЩИЕ ЛОГИ": "CURRENT LOGS",
+  "СТАРЫЕ ЛОГИ": "OLD LOGS",
+  "текущий сеанс": "current session",
+  "старые запуски": "previous launches",
+  "типов диагностики": "diagnostic categories",
+  "интерфейс логов": "logs interface",
+  "Что записывается в логи KEYGUARD?": "What does KEYGUARD record in its logs?",
+  "Логи помогают диагностировать автозапуск, регистрацию макросов, запуск Actions, обнаружение Python и работу Touchpad. Текущие и старые логи можно открыть прямо внутри KEYGUARD.": "Logs help diagnose autostart, macro registration, Action execution, Python detection, and Touchpad behavior. Current and old logs can be opened directly inside KEYGUARD.",
   "Доступ выдаётся только после проверки GitHub-аккаунта на сервере. В HTML нет пароля администратора, GitHub Client Secret или токена.": "Access is granted only after the GitHub account is verified on the server. The HTML contains no admin password, GitHub Client Secret, or token.",
   "Выйти из админки": "Sign out of admin",
   "Управление Releases": "Manage Releases",
@@ -2877,3 +3189,12 @@ const DOWNLOAD_URL = "https://github.com/MrHaking/Keyguard/releases/download/v1.
 </script><script defer="" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>
+
+index_LOGS_FAVICON.html
+HTML
+
+
+favicon.png
+Изображение
+
+
